@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Trash2, ShieldCheck, ChevronRight, CheckCircle2 } from "lucide-react";
@@ -46,8 +46,6 @@ export default function CheckoutPage() {
 
 function CheckoutContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const buyNowId = searchParams.get("buyNow");
   
   const { items, getSubtotal, clearCart } = useCartStore();
   const { config, fetchConfig } = useSiteConfigStore();
@@ -87,8 +85,8 @@ function CheckoutContent() {
 
   useEffect(() => {
     fetchConfig();
-    // If no items in cart and not buying a specific product, redirect to home
-    if (items.length === 0 && !buyNowId) {
+    // If no items in cart, redirect to home
+    if (items.length === 0) {
       toast.error("Your cart is empty");
       router.push("/");
     }
@@ -99,7 +97,7 @@ function CheckoutContent() {
         setActiveQR(res.data.data[0]);
       }
     }).catch(() => {});
-  }, [items, buyNowId, router]);
+  }, [items, router]);
 
   const onSubmitDetails = async (data: CheckoutForm) => {
     setOrderData(data);

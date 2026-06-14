@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { Heart, ShoppingBag, Star, Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { formatPrice, getDiscountPercent, truncate } from "@/lib/utils";
@@ -39,6 +40,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const wishlisted = isWishlisted(product._id);
+  const router = useRouter();
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -65,6 +67,21 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
     });
     toast.success(`${product.name} added to cart! 🛍️`);
     openCart();
+  };
+
+  const handleOrderNow = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem({
+      _id: product._id,
+      name: product.name,
+      image: product.images[0]?.url || "",
+      price: product.price,
+      discountPrice: product.discountPrice,
+      quantity: 1,
+      category: product.category?.name || "",
+    });
+    router.push("/checkout");
   };
 
   const discount = product.discountPrice ? getDiscountPercent(product.price, product.discountPrice) : 0;
@@ -195,14 +212,13 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             <ShoppingBag className="w-3.5 h-3.5" />
             {product.isOutOfStock ? "Out of Stock" : "Add to Cart"}
           </button>
-          <Link href={`/checkout?buyNow=${product._id}`}>
-            <button
-              disabled={product.isOutOfStock}
-              className="px-4 py-2.5 rounded-full text-sm font-semibold border border-pink-300 text-pink-600 hover:bg-pink-50 transition-all duration-200"
-            >
-              Order Now
-            </button>
-          </Link>
+          <button
+            disabled={product.isOutOfStock}
+            onClick={handleOrderNow}
+            className="px-4 py-2.5 rounded-full text-sm font-semibold border border-pink-300 text-pink-600 hover:bg-pink-50 transition-all duration-200"
+          >
+            Order Now
+          </button>
         </div>
       </div>
     </motion.div>
