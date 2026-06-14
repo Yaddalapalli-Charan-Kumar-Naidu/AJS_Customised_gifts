@@ -13,7 +13,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Female Gifts", href: "/category/female-gifts" },
   { label: "Male Gifts", href: "/category/male-gifts" },
-  { label: "Hampers", href: "/category/customized-hampers" },
+  // { label: "Hampers", href: "/category/customized-hampers" },
   { label: "Bouquets", href: "/category/bouquets" },
   { label: "Customize Hamper", href: "/hampers" },
 ];
@@ -42,11 +42,10 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled || !isHeroPage
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${scrolled || !isHeroPage
             ? "bg-white/90 backdrop-blur-md shadow-sm border-b border-pink-100"
             : "bg-transparent"
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -57,9 +56,8 @@ export default function Navbar() {
                 <Gift className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className={`font-display font-bold text-lg leading-tight block transition-colors ${
-                  scrolled || !isHeroPage ? "text-gray-900" : "text-white"
-                }`}>
+                <span className={`font-display font-bold text-lg leading-tight block transition-colors ${scrolled || !isHeroPage ? "text-gray-900" : "text-white"
+                  }`}>
                   AJS Gifts
                 </span>
                 <span className="font-script text-xs text-pink-400 leading-tight block">
@@ -74,13 +72,12 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                    pathname === link.href
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${pathname === link.href
                       ? "bg-pink-100 text-pink-600"
                       : scrolled || !isHeroPage
-                      ? "text-gray-700 hover:text-pink-500 hover:bg-pink-50"
-                      : "text-white/90 hover:text-white hover:bg-white/10"
-                  }`}
+                        ? "text-gray-700 hover:text-pink-500 hover:bg-pink-50"
+                        : "text-white/90 hover:text-white hover:bg-white/10"
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -92,9 +89,8 @@ export default function Navbar() {
               {/* Search */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className={`p-2 rounded-full transition-colors ${
-                  scrolled || !isHeroPage ? "text-gray-700 hover:bg-pink-50" : "text-white/90 hover:bg-white/10"
-                }`}
+                className={`p-2 rounded-full transition-colors ${scrolled || !isHeroPage ? "text-gray-700 hover:bg-pink-50" : "text-white/90 hover:bg-white/10"
+                  }`}
                 aria-label="Search"
               >
                 <Search className="w-5 h-5" />
@@ -192,9 +188,8 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                      pathname === link.href ? "bg-pink-100 text-pink-600" : "text-gray-700 hover:bg-pink-50 hover:text-pink-500"
-                    }`}
+                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${pathname === link.href ? "bg-pink-100 text-pink-600" : "text-gray-700 hover:bg-pink-50 hover:text-pink-500"
+                      }`}
                   >
                     {link.label}
                   </Link>
